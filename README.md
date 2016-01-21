@@ -13,6 +13,7 @@
 * i3
 
 * Powerline fonts
+
         wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
         wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
         mv PowerlineSymbols.otf ~/.fonts/
