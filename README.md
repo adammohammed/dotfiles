@@ -9,6 +9,7 @@
     * Vim Jedi
     * Vim Python
     * NERD Tree
+    * Rebind Caps to Escape by update-rc.d rebind_keys.sh
 * i3
 
 ### Colors

@@ -114,4 +114,3 @@ if ! shopt -oq posix; then
 fi
 cd ~
 export TERM="screen-256color"
-xmodmap ~/.Xmodmap
