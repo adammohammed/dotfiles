@@ -5,7 +5,7 @@
     * Powerline
 * vim
     * Vundle
-    * Vim Airline
+    * Vim Powerline plugin
     * Vim Jedi
     * Vim Python
     * NERD Tree

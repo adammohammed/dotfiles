@@ -7,12 +7,17 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'bling/vim-airline' " status line
+"Plugin 'bling/vim-airline' " status line
 Plugin 'tpope/vim-fugitive' " Git branch
 Plugin 'scrooloose/nerdtree' " File System
 "All Plugins must go before this line
 call vundle#end()
 filetype plugin indent on
+
+" Vim Powerline
+python from powerline.vim import setup as pline_setup
+python pline_setup()
+python del pline_setup
 
 set autoread " detect when a file is changed
 
