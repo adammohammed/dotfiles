@@ -7,7 +7,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'bling/vim-airline' " status line
+Plugin 'bling/vim-airline' " status line
 Plugin 'tpope/vim-fugitive' " Git branch
 Plugin 'scrooloose/nerdtree' " File System
 "All Plugins must go before this line
@@ -15,16 +15,23 @@ call vundle#end()
 filetype plugin indent on
 
 " Vim Powerline
-python from powerline.vim import setup as pline_setup
-python pline_setup()
-python del pline_setup
+" python from powerline.vim import setup as pline_setup
+" python pline_setup()
+" python del pline_setup
 
 set autoread " detect when a file is changed
 
 set laststatus=2
 let g:airline_powerline_fonts=1
+
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
+
+" set buffer line to top window
+let g:airline#extensions#tabline#enabled = 1
+
+" Just show filename at tabline
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " set a map leader for more combos
 let mapleader=','
@@ -93,3 +100,11 @@ noremap Q <NOP>
 
 " clear highlighted search
 noremap <space> :set hlsearch! hlsearch?<cr>
+
+" Buffer Management
+" New buffer
+nmap <leader>T :enew<cr>
+
+" Buffer Navigation
+nmap <leader>l :bnext<cr>
+nmap <leader>h :bprevious<cr> 
