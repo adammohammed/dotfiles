@@ -3,38 +3,16 @@ filetype off
 
 " set the runtime path to include Vundle and init
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline' " status line
-Plugin 'vim-airline/vim-airline-themes' " status line
-Plugin 'tpope/vim-fugitive' " Git branch
-Plugin 'scrooloose/nerdtree' " File System
-"All Plugins must go before this line
-call vundle#end()
+call plug#begin()
+call plug#end()
 filetype plugin indent on
-
-" Vim Powerline
-" python from powerline.vim import setup as pline_setup
-" python pline_setup()
-" python del pline_setup
 
 set autoread " detect when a file is changed
 
 set laststatus=2
-let g:airline_powerline_fonts=1
-let g:airline_theme='badwolf'
-set noshowmode
 
 " make backspace behave in a sane manner
 set backspace=indent,eol,start
-
-" set buffer line to top window
-let g:airline#extensions#tabline#enabled = 1
-
-" Just show filename at tabline
-let g:airline#extensions#tabline#fnamemod = ':t'
 
 " set a map leader for more combos
 let mapleader=','
@@ -62,7 +40,7 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if capital letter
 set hlsearch  " highlight matches
 set incsearch " search as you type
-set nolazyredraw " don't redraw while exectuing macros
+set lazyredraw " don't redraw while exectuing macros
 
 set showmatch " show matching braces
 set mat=2
@@ -74,7 +52,7 @@ set t_Co=256             " explicitly tell vim terminal supports 256 colors
 " set number " shows line numbers
 " set relativenumber "shows relative line numbers
 set number
-syntax on
+syntax enable
 set wrap "turn on line wrapping
 set linebreak " set soft wrapping
 set showbreak=.. "show 2 dots at break
@@ -111,3 +89,5 @@ nmap <leader>T :enew<cr>
 " Buffer Navigation
 nmap <leader>l :bnext<cr>
 nmap <leader>h :bprevious<cr> 
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
