@@ -114,3 +114,5 @@ if ! shopt -oq posix; then
 fi
 cd ~
 export TERM="screen-256color"
+export EDITOR="emacs"
+export VISUAL="emacs"

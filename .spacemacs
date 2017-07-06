@@ -31,13 +31,13 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     go
-     markdown
-     javascript
-     html
-     nginx
-     python
-     latex
+     ;; go
+     ;; markdown
+     ;; javascript ;; These are useful but enable them only if req'd
+     ;; html
+     ;; nginx
+     ;; python
+     ;; latex
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -45,7 +45,6 @@ values."
      ;; ----------------------------------------------------------------
      helm
      auto-completion
-     better-defaults
      emacs-lisp
      git
      markdown
@@ -189,7 +188,7 @@ values."
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
-   dotspacemacs-large-file-size 1
+   dotspacemacs-large-file-size 5
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -234,7 +233,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -297,6 +296,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (global-set-key (kbd "M-p") 'ace-window)
+  (setq-default c-basic-offset 2)
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
   )
 
 (defun dotspacemacs/user-config ()

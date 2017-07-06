@@ -1,25 +1,11 @@
 # Dotfiles
 
-## Ubuntu Addons
-* tmux
-    * Powerline
-* vim
-    * Vundle
-    * Vim Powerline plugin
-    * Vim Jedi
-    * Vim Python
-    * NERD Tree
-    * Rebind Caps to Escape by update-rc.d rebind_keys.sh
-* i3
+## Just get emacs 25+ ##
+Spacemacs is way easier to throw a config around and have set up correctly.
 
-* Powerline fonts
+## Installation ##
+1. Download and install Emacs
+2. Install Source Code Pro Font
+3. Remap CapsLock to Ctrl
+3. Copy .bashrc and .spacemacs into home folder
 
-        wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-        wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-        mv PowerlineSymbols.otf ~/.fonts/
-        fc-cache -vf ~/.fonts/ 
-        mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/ 
-
-### Colors
-Always use a terminal with 256 colors
-- Current personal FOTM Terminal is GNOME terminal
