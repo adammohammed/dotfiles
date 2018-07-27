@@ -7,5 +7,5 @@ Spacemacs is way easier to throw a config around and have set up correctly.
 1. Download and install Emacs
 2. Install Source Code Pro Font
 3. Remap CapsLock to Ctrl
-3. Copy .bashrc and .spacemacs into home folder
+4. Soft link files to home dir `ln -s ~/dotfiles/spacemacs ~/.spacemacs` and `ln -s ~/dotfiles/.bashrc ~/.bashrc`
 
