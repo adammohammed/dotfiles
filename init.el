@@ -53,7 +53,7 @@ There are two things you can do about this warning:
       mouse-yank-at-point t
       require-final-newline t
       load-prefer-newer t
-      visible-bell t
+      visible-bell nil
       backup-directory-alist `(("." . ,(concat user-emacs-directory
 					       "backups"))))
 (show-paren-mode)
@@ -62,10 +62,23 @@ There are two things you can do about this warning:
 (use-package minimal-theme
   :ensure t
   :config
-  (defvar enable-light-theme nil)
+  (defvar enable-light-theme t)
   (load-theme (if enable-light-theme 'minimal-light 'minimal) t)
   (set-face-foreground 'font-lock-comment-face "light green"))
 
+;; Window sizing
+(defun set-window-size-by-resolution ()
+  "Change it so it isn't so damn tiny."
+  (interactive)
+  (if window-system
+      (progn
+	(if (> (x-display-pixel-width) 1280)
+	    (add-to-list 'default-frame-alist (cons 'width 180))
+	  (add-to-list 'default-frame-alist (cons 'width 120)))
+	(add-to-list 'default-frame-alist
+		     (cons 'height (/ (- (x-display-pixel-height) 120) (frame-char-height)))))))
+
+(set-window-size-by-resolution)
 
 ;; ------ Easy access to configs ----
 (defun adam/find-init-file ()
@@ -93,11 +106,31 @@ There are two things you can do about this warning:
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; ------- Complete Anything -------
+(use-package company
+  :ensure t)
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (setq venv-location '("/Users/amohammed/.envs/venv/")))
+
+(use-package company-jedi
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+  (setq jedi:use-shortcuts t)
+  (defun config/enable-company-jedi ()
+    (add-to-list 'company-backends 'company-jedi))
+  (add-hook 'python-mode-hook 'config/enable-company-jedi))
 ;; ------- Replace Iserch with helm-
 (global-set-key (kbd "C-s") 'helm-occur)
 
 ;; ------- Python config -----------
-(load-file (concat user-emacs-directory "python.el"))
+(add-hook 'python-mode-hook
+	  (lambda ()
+	    (fci-mode)
+	    (setq fill-column 80)))
 
 
 (custom-set-variables
@@ -105,10 +138,10 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes)
+ '(custom-safe-themes nil)
  '(package-selected-packages
    (quote
-    (exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package))))
+    (company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
