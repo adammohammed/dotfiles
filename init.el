@@ -1,3 +1,7 @@
+;;; Init.el --- Emacs config
+;;; Commentary:
+
+;;; Code:
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -32,14 +36,27 @@ There are two things you can do about this warning:
 	 ("C-x f" . helm-recentf)
 	 ("C-x b" . helm-buffers-list)))
 
+(use-package helm-projectile
+  :ensure t)
+
 (use-package projectile
   :ensure t
   :init
   (projectile-mode)
   :config
   (setq projectile-enable-caching t)
+  (setq projectile-switch-project-action 'helm-projectile)
   :bind-keymap
   ("C-c p" . projectile-command-map))
+
+
+;; ------ Buffer navigation ---------
+(use-package ace-window
+  :ensure t
+  :bind
+  ("M-o" . 'ace-window)
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; ------ Magit VC ------------------
 (use-package magit
@@ -48,25 +65,35 @@ There are two things you can do about this warning:
 (use-package fill-column-indicator
   :ensure t)
 
-(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-/") 'company-complete)
 (setq save-interprogram-paste-before-kill t
       mouse-yank-at-point t
       require-final-newline t
       load-prefer-newer t
-      visible-bell nil
+      visible-bell t
       backup-directory-alist `(("." . ,(concat user-emacs-directory
 					       "backups"))))
 (show-paren-mode)
 
 ;; ------ Theme Configs -------------
+
+(defun change-minimal-theme (light-theme)
+  "Set the theme and comment colors.  LIGHT-THEME."
+  (interactive)
+  (cond (light-theme (progn (load-theme 'minimal-light t)
+				(set-face-foreground 'font-lock-comment-face "SkyBlue3")
+				(set-face-foreground 'font-lock-comment-delimiter-face "SkyBlue3")))
+	((not light-theme) (progn (load-theme 'minimal t)
+				(set-face-foreground 'font-lock-comment-face "light green")
+				(set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
+
 (use-package minimal-theme
   :ensure t
   :config
   (defvar enable-light-theme t)
-  (load-theme (if enable-light-theme 'minimal-light 'minimal) t)
-  (set-face-foreground 'font-lock-comment-face "light green"))
+  (change-minimal-theme enable-light-theme))
 
-;; Window sizing
+;; ------- Window sizing -----------
 (defun set-window-size-by-resolution ()
   "Change it so it isn't so damn tiny."
   (interactive)
@@ -108,21 +135,26 @@ There are two things you can do about this warning:
 
 ;; ------- Complete Anything -------
 (use-package company
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'company-mode))
+
 (use-package virtualenvwrapper
   :ensure t
   :config
   (setq venv-location '("/Users/amohammed/.envs/venv/")))
 
-(use-package company-jedi
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
-  (setq jedi:use-shortcuts t)
-  (defun config/enable-company-jedi ()
-    (add-to-list 'company-backends 'company-jedi))
-  (add-hook 'python-mode-hook 'config/enable-company-jedi))
+;; (use-package company-jedi
+;;   :ensure t
+;;   :config
+;;   (add-hook 'python-mode-hook 'jedi:setup)
+;;   (setq jedi:complete-on-dot t)
+;;   (setq jedi:use-shortcuts t)
+;;   (defun config/enable-company-jedi ()
+;;     (venv-workon "venv")
+;;     (add-to-list 'company-backends 'company-jedi))
+;;   (add-hook 'python-mode-hook 'config/enable-company-jedi))
+
 ;; ------- Replace Iserch with helm-
 (global-set-key (kbd "C-s") 'helm-occur)
 
@@ -141,7 +173,7 @@ There are two things you can do about this warning:
  '(custom-safe-themes nil)
  '(package-selected-packages
    (quote
-    (company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package))))
+    (ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
