@@ -175,6 +175,17 @@ There are two things you can do about this warning:
 	    (fci-mode)
 	    (setq fill-column 80)))
 
+;; --------- JS config -------------
+ (defface extra-whitespace-face
+   '((t (:background "pale green")))
+   "Used for tabs and such.")
+(defvar my-extra-keywords
+   '(("\t" . 'extra-whitespace-face)))
+(add-hook 'js-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil my-extra-keywords)
+	    (setq indent-tabs-mode nil)))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
