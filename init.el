@@ -153,7 +153,7 @@ There are two things you can do about this warning:
 (use-package virtualenvwrapper
   :ensure t
   :config
-  (setq venv-location '("/Users/amohammed/.envs/venv/")))
+  (setq venv-location '("/Users/amohammed/devenv/venv/")))
 
 ;; (use-package company-jedi
 ;;   :ensure t
@@ -195,7 +195,7 @@ There are two things you can do about this warning:
  '(custom-safe-themes nil)
  '(package-selected-packages
    (quote
-    (ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package))))
+    (yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
