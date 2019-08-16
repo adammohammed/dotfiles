@@ -26,6 +26,9 @@ There are two things you can do about this warning:
   (package-refresh-contents)
   (package-install 'use-package))
 
+;;------- Buffer configuration ------
+;; If buffers changed on disk reload automatically
+(global-auto-revert-mode t)
 
 ;;------- Folder navigation ---------
 (use-package helm
