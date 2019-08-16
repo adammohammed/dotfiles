@@ -142,6 +142,14 @@ There are two things you can do about this warning:
   :config
   (add-hook 'python-mode-hook 'company-mode))
 
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
+
+(use-package yasnippet-snippets
+  :ensure t)
+
 (use-package virtualenvwrapper
   :ensure t
   :config
