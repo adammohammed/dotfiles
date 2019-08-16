@@ -53,7 +53,6 @@ There are two things you can do about this warning:
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
-
 ;; ------ Buffer navigation ---------
 (use-package ace-window
   :ensure t
@@ -240,6 +239,14 @@ There are two things you can do about this warning:
 (add-hook 'comint-output-filter-functions
           'filter-non-sgr-control-sequences-in-output)
 
+;; Enable docker through tramp/helm
+(use-package docker-tramp
+  :ensure t)
+
+(use-package helm-tramp
+  :ensure t
+  :bind
+  (("C-x t" . 'helm-tramp)))
 ;; -------------- DO NOT TOUCH -------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -249,7 +256,7 @@ There are two things you can do about this warning:
  '(custom-safe-themes nil)
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
+    (helm-tramp docker-tramp yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
  '(safe-local-variable-values
    (quote
     ((eval venv-workon "venv")
