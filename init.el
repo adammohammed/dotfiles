@@ -30,6 +30,9 @@ There are two things you can do about this warning:
 ;; If buffers changed on disk reload automatically
 (global-auto-revert-mode t)
 
+;;------- Basic global config -------
+(setq-default indent-tabs-mode nil)
+
 ;;------- Folder navigation ---------
 (use-package helm
   :ensure t
