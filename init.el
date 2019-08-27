@@ -165,9 +165,13 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-s") 'helm-occur)
 
 ;; ------- Python config -----------
+(use-package blacken
+  :ensure t)
+
 (add-hook 'python-mode-hook
 	  (lambda ()
 	    (fci-mode)
+	    (blacken-mode)
 	    (setq fill-column 80)))
 
 (use-package virtualenvwrapper
@@ -257,7 +261,7 @@ There are two things you can do about this warning:
  '(custom-safe-themes nil)
  '(package-selected-packages
    (quote
-    (helm-tramp docker-tramp yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
+    (blacken helm-tramp docker-tramp yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
  '(safe-local-variable-values
    (quote
     ((eval venv-workon "venv")
