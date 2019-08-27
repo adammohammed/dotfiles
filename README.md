@@ -1,12 +1,10 @@
 # Dotfiles
 
-## Just get emacs 25+ ##
+## Just get emacs 26+ ##
 Symlink the init.el file to the emacs.d directory
 
-`ln -s ~/dotfiles/init.el ~/.emacs.d/init.el`
-
-## Installation ##
-1. Download and install Emacs
-2. Install Source Code Pro Font
-3. Remap CapsLock to Ctrl
-4. Soft link files to home dir `ln -s ~/dotfiles/spacemacs ~/.spacemacs` and `ln -s ~/dotfiles/.bashrc ~/.bashrc`
+```bash
+$ pip install -r requirements.txt
+$ mkdir -p ~/dotfiles/init.el
+$ ln -s ~/dotfiles/init.el ~/.emacs.d/init.el
+```
