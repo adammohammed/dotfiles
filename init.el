@@ -150,12 +150,6 @@ There are two things you can do about this warning:
 (use-package yasnippet-snippets
   :ensure t)
 
-(use-package virtualenvwrapper
-  :ensure t
-  :config
-  (setq venv-location '("/Users/amohammed/devenv/venv/")))
-
-(setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 ;; (use-package company-jedi
 ;;   :ensure t
 ;;   :config
@@ -175,6 +169,13 @@ There are two things you can do about this warning:
 	  (lambda ()
 	    (fci-mode)
 	    (setq fill-column 80)))
+
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (setq venv-location '("/Users/amohammed/devenv/venv/")))
+
+(setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 
 ;; --------- JS config -------------
  (defface extra-whitespace-face
