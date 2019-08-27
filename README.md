@@ -5,8 +5,6 @@ Symlink the init.el file to the emacs.d directory
 
 `ln -s ~/dotfiles/init.el ~/.emacs.d/init.el`
 
-`ln -s ~/dotfiles/python.el ~/.emacs.d/python.el`
-
 ## Installation ##
 1. Download and install Emacs
 2. Install Source Code Pro Font
