@@ -189,6 +189,10 @@ There are two things you can do about this warning:
 
 (setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 
+;; --------- Groovy ---------------
+(use-package groovy-mode
+  :ensure t)
+
 ;; --------- JS config -------------
  (defface extra-whitespace-face
    '((t (:background "pale green")))
