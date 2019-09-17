@@ -279,6 +279,11 @@ There are two things you can do about this warning:
   :ensure t
   :bind
   (("C-x t" . 'helm-tramp)))
+;; Editor config
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
 ;; -------------- DO NOT TOUCH -------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
