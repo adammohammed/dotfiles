@@ -256,6 +256,13 @@ There are two things you can do about this warning:
 (add-hook 'comint-output-filter-functions
           'filter-non-sgr-control-sequences-in-output)
 
+;; Markdown - github flavor
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 ;; Enable docker through tramp/helm
 (use-package docker-tramp
   :ensure t)
