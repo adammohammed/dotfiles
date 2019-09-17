@@ -284,6 +284,12 @@ There are two things you can do about this warning:
   :ensure t
   :config
   (editorconfig-mode 1))
+
+;; Golang mode
+(use-package go-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode)))
 ;; -------------- DO NOT TOUCH -------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
