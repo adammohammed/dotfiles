@@ -189,6 +189,14 @@ There are two things you can do about this warning:
 
 (setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 
+;; --------- Favorited files -----
+
+(defun adam/day-to-day-notes ()
+  "Opens your day to day notes"
+  (interactive)
+  (find-file "~/Notes/DayToDayNotes.org"))
+(global-set-key (kbd "C-c f n") 'adam/day-to-day-notes)
+
 ;; --------- Groovy ---------------
 (use-package groovy-mode
   :ensure t)
