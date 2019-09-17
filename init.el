@@ -316,10 +316,12 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes nil)
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(custom-safe-themes (quote nil))
  '(package-selected-packages
    (quote
-    (blacken helm-tramp docker-tramp yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
+    (go-mode flycheck-yamllint markdown-mode editorconfig doom-modeline emojify company-emoji groovy-mode blacken helm-tramp docker-tramp yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
  '(safe-local-variable-values
    (quote
     ((eval venv-workon "venv")
