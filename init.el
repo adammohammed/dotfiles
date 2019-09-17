@@ -306,6 +306,10 @@ There are two things you can do about this warning:
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode)))
+
+;; Org mode settings
+(setq org-image-actual-width nil)
+
 ;; -------------- DO NOT TOUCH -------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
