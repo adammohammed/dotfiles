@@ -99,6 +99,11 @@ There are two things you can do about this warning:
   (defvar enable-light-theme t)
   (change-minimal-theme enable-light-theme))
 
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
 ;; ------- Window sizing -----------
 (defun set-window-size-by-resolution ()
   "Change it so it isn't so damn tiny."
