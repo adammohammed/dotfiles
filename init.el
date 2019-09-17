@@ -271,6 +271,15 @@ There are two things you can do about this warning:
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+;; Yaml
+(use-package flycheck-yamllint
+  :ensure t
+  :defer t
+  :init
+  (progn
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+
 ;; Enable docker through tramp/helm
 (use-package docker-tramp
   :ensure t)
@@ -279,6 +288,13 @@ There are two things you can do about this warning:
   :ensure t
   :bind
   (("C-x t" . 'helm-tramp)))
+
+;; Enable emoji support
+(use-package emojify
+  :ensure t)
+(use-package company-emoji
+  :ensure t)
+
 ;; Editor config
 (use-package editorconfig
   :ensure t
