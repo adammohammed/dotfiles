@@ -176,6 +176,9 @@ There are two things you can do about this warning:
 (use-package blacken
   :ensure t)
 
+(use-package python-pytest
+  :ensure t)
+
 (add-hook 'python-mode-hook
 	  (lambda ()
 	    (fci-mode)
