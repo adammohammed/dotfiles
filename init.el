@@ -310,25 +310,6 @@ There are two things you can do about this warning:
 ;; Org mode settings
 (setq org-image-actual-width nil)
 
-;; -------------- DO NOT TOUCH -------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-safe-themes (quote nil))
- '(package-selected-packages
-   (quote
-    (go-mode flycheck-yamllint markdown-mode editorconfig doom-modeline emojify company-emoji groovy-mode blacken helm-tramp docker-tramp yasnippet-snippets yasnippet ace-window company-jedi exec-path-from-shell flycheck minimal-theme projectile fill-column-indicator helm use-package)))
- '(safe-local-variable-values
-   (quote
-    ((eval venv-workon "venv")
-     (venv-workon "~/devenv/venv/")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq custom-file-dir "~/.emacs.d/")
+(setq custom-file (concat custom-file-dir "custom.el"))
+(load custom-file 'noerror)
