@@ -147,8 +147,8 @@ There are two things you can do about this warning:
 ;; ------- Complete Anything -------
 (use-package company
   :ensure t
-  :config
-  (add-hook 'python-mode-hook 'company-mode))
+  :hook ((python-mode) . company-mode))
+
 
 (use-package yasnippet
   :ensure t
