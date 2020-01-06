@@ -26,6 +26,9 @@ There are two things you can do about this warning:
   (package-refresh-contents)
   (package-install 'use-package))
 
+;;--------Use-package configuration--
+(setq use-package-always-ensure t)
+
 ;;------- Buffer configuration ------
 ;; If buffers changed on disk reload automatically
 (global-auto-revert-mode t)
@@ -181,6 +184,7 @@ There are two things you can do about this warning:
 
 (add-hook 'python-mode-hook
 	  (lambda ()
+            (anaconda-mode)
 	    (fci-mode)
 	    (blacken-mode)
 	    (setq fill-column 80)))
