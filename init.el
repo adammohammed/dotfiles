@@ -169,7 +169,7 @@ There are two things you can do about this warning:
 ;;     (add-to-list 'company-backends 'company-jedi))
 ;;   (add-hook 'python-mode-hook 'config/enable-company-jedi))
 
-;; ------- Replace Iserch with helm-
+;; ------- Replace Isearch with helm-
 (global-set-key (kbd "C-s") 'helm-occur)
 
 ;; ------- Python config -----------
