@@ -189,6 +189,38 @@ There are two things you can do about this warning:
 	    (blacken-mode)
 	    (setq fill-column 80)))
 
+(defun adam/nose-find-func-at-point ()
+  "Detect and run the current function"
+  (save-excursion
+    (let ((name (python-info-current-defun)))
+      (unless name
+        (user-error "No class/function found"))
+      name)))
+(defun adam/nose-run-test-at-point ()
+  "this is the docstring"
+  (interactive)
+  (let ((file (file-relative-name buffer-file-name (projectile-project-root)))
+        (func (adam/nose-find-func-at-point)))
+    (let* ((buffer (get-buffer-create "nostest-bapi"))
+           (process (get-buffer-process buffer))
+           (nosetest-executable "docker-compose exec bapi-backend python setup.py nosetests")
+           (nosetest-args "--tests")
+           (command (format "%s %s %s:%s" nosetest-executable nosetest-args file func)))
+      (with-current-buffer buffer
+        (when (comint-check-proc buffer)
+          (unless (or compilation-always-kill
+                      (yes-or-no-p "Kill running nosetest process?"))
+            (user-error "Aborting; nosetest still running")))
+        (when process
+          (delete-process process))
+        (erase-buffer)
+        (unless (eq major-mode 'python-pytest-mode)
+          (python-pytest-mode))
+        (compilation-forget-errors)
+        (insert (format "cwd: %s\ncmd: %s\n\n" default-directory command))
+        (make-comint-in-buffer "nosetests" buffer "bash" nil "-c" command)
+        (display-buffer buffer)))))
+
 (use-package virtualenvwrapper
   :ensure t
   :config
