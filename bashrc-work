@@ -1,0 +1,37 @@
+HISTCONTROL=ignoreboth
+
+shopt -s histappend
+
+
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+
+ PS1="\u@\h:\W$ "
+
+# Add /usr/local/bin/ to PATH
+export PATH=/usr/local/bin:~/bin:$PATH
+
+# Aliases
+alias ls='ls -G'
+alias ll='ls -l'
+alias docker-reup='docker-compose down; docker-compose up -d && docker-compose logs -f lindev2 apinext'
+alias dc='docker-compose -f ~/devenv/docker-compose.yml'
+alias dce='dc exec'
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+alias caplke="cd ~/go/src/bits.linode.com/LinodeAPI/cluster-api-provider-lke"
+
+export GOPATH=$HOME/go
+export PATH=$PATH:/opt/apache-maven-3.6.1/bin:~/bin:$GOPATH/bin
+
+
+
+# Kubernetes Dev
+source <(kubectl completion bash)
+alias k=kubectl
+complete -o default -F __start_kubectl kubectl
+complete -o default -F __start_kubectl k
+
+
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "$HOME/dotfiles/completion.sh" ]] &&  . "$HOME/dotfiles/completion.sh"
