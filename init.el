@@ -96,12 +96,19 @@ There are two things you can do about this warning:
 				(set-face-foreground 'font-lock-comment-face "light green")
 				(set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
 
+(defvar adam/use-minimal-theme nil)
+
 (use-package minimal-theme
   :ensure t
   :config
   (defvar enable-light-theme t)
-  (change-minimal-theme enable-light-theme))
+  (when (eq adam/use-minimal-theme t)
+    (change-minimal-theme enable-light-theme)))
 
+(use-package atom-dark-theme
+  :ensure t)
+
+(load-theme 'atom-dark t)
 
 (use-package doom-modeline
   :ensure t
