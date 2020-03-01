@@ -21,6 +21,7 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
