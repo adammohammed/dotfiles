@@ -90,26 +90,26 @@ There are two things you can do about this warning:
 (defun change-minimal-theme (light-theme)
   "Set the theme and comment colors.  LIGHT-THEME."
   (interactive)
-  (cond (light-theme (progn (load-theme 'minimal-light t)
-				(set-face-foreground 'font-lock-comment-face "SkyBlue3")
-				(set-face-foreground 'font-lock-comment-delimiter-face "SkyBlue3")))
-	((not light-theme) (progn (load-theme 'minimal t)
-				(set-face-foreground 'font-lock-comment-face "light green")
-				(set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
-
-(defvar adam/use-minimal-theme nil)
+  (cond ((and light-theme) (progn (load-theme 'minimal-light t)
+                            (messagee "loading minimal-light")
+                            (set-face-foreground 'font-lock-comment-face "SkyBlue3")
+                            (set-face-foreground 'font-lock-comment-delimiter-face "SkyBlue3")))
+         ((not light-theme) (progn (message "loading minimal")
+                                   (load-theme 'minimal t)
+                                   (set-face-foreground 'font-lock-comment-face "light green")
+                                   (set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
+(defvar adam/use-theme "minimal")
+(defvar adam/enable-light-theme t)
 
 (use-package minimal-theme
-  :ensure t
-  :config
-  (defvar enable-light-theme t)
-  (when (eq adam/use-minimal-theme t)
-    (change-minimal-theme enable-light-theme)))
+  :ensure t)
 
 (use-package atom-dark-theme
   :ensure t)
 
-(load-theme 'atom-dark t)
+;; Enable theme based on setting
+(cond ((string= adam/use-theme "minimal")   (change-minimal-theme adam/enable-light-theme))
+      ((string= adam/use-theme "atom-dark") (load-theme 'atom-dark t)))
 
 (use-package doom-modeline
   :ensure t
