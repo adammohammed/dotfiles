@@ -241,7 +241,7 @@ There are two things you can do about this warning:
 (defun adam/day-to-day-notes ()
   "Opens your day to day notes"
   (interactive)
-  (find-file "~/Notes/DayToDayNotes.org"))
+  (find-file "~/Notes/DayToDay2020.org"))
 (global-set-key (kbd "C-c f n") 'adam/day-to-day-notes)
 
 ;; --------- Groovy ---------------
