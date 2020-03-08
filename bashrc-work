@@ -20,10 +20,12 @@ alias dc='docker-compose -f ~/devenv/docker-compose.yml'
 alias dce='dc exec'
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
 alias caplke="cd ~/go/src/bits.linode.com/LinodeAPI/cluster-api-provider-lke"
-
+alias opgetpass="jq -r '.details.fields[] | select(.designation==\"password\").value'"
+function 1p {
+    op get item "$@" | opgetpass
+}
 export GOPATH=$HOME/go
-export PATH=$PATH:/opt/apache-maven-3.6.1/bin:~/bin:$GOPATH/bin
-
+export PATH="$PATH:/opt/apache-maven-3.6.1/bin:~/bin:$GOPATH/bin:/Users/amohammed/repos/knative/istio-1.4.3/bin"
 
 
 # Kubernetes Dev
