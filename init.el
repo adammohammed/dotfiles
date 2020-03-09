@@ -357,6 +357,11 @@ There are two things you can do about this warning:
 ;; Org mode settings
 (setq org-image-actual-width nil)
 
+;; Salt-mode
+(use-package salt-mode
+  :ensure t
+  :mode "\\.sls\\'")
+
 (setq custom-file-dir "~/.emacs.d/")
 (setq custom-file (concat custom-file-dir "custom.el"))
 (load custom-file 'noerror)
