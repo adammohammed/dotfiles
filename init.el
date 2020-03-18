@@ -229,10 +229,10 @@ There are two things you can do about this warning:
         (make-comint-in-buffer "nosetests" buffer "bash" nil "-c" command)
         (display-buffer buffer)))))
 
-(use-package virtualenvwrapper
+(use-package pyvenv
   :ensure t
   :config
-  (setq venv-location '("/Users/amohammed/devenv/venv/")))
+  (pyvenv-mode 1))
 
 (setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 
