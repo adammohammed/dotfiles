@@ -90,14 +90,15 @@ There are two things you can do about this warning:
 (defun change-minimal-theme (light-theme)
   "Set the theme and comment colors.  LIGHT-THEME."
   (interactive)
-  (cond ((and light-theme) (progn (load-theme 'minimal-light t)
-                            (messagee "loading minimal-light")
-                            (set-face-foreground 'font-lock-comment-face "SkyBlue3")
-                            (set-face-foreground 'font-lock-comment-delimiter-face "SkyBlue3")))
-         ((not light-theme) (progn (message "loading minimal")
-                                   (load-theme 'minimal t)
-                                   (set-face-foreground 'font-lock-comment-face "light green")
-                                   (set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
+  (cond ((and light-theme) (progn
+                             (load-theme 'minimal-light t)
+                             (set-face-foreground 'font-lock-comment-face "SkyBlue3")
+                             (set-face-foreground 'font-lock-comment-delimiter-face "SkyBlue3")))
+        ((not light-theme) (progn
+                             (load-theme 'minimal t)
+                             (set-face-foreground 'font-lock-comment-face "light green")
+                             (set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
+
 (defvar adam/use-theme "minimal")
 (defvar adam/enable-light-theme t)
 
