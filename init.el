@@ -365,6 +365,19 @@ There are two things you can do about this warning:
   :ensure t
   :mode "\\.sls\\'")
 
+
+(use-package ob-http
+  :ensure t)
+
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . nil)
+   (shell . t)
+   (http . t)))
+
+
+
 (setq custom-file-dir "~/.emacs.d/")
 (setq custom-file (concat custom-file-dir "custom.el"))
 (load custom-file 'noerror)
