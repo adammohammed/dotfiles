@@ -189,7 +189,9 @@ There are two things you can do about this warning:
   :ensure t)
 
 (use-package python-pytest
-  :ensure t)
+  :ensure t
+  :bind (("M-t" . python-pytest-function-dwim)
+         ("M-T" . python-pytest-file-dwim)))
 
 (add-hook 'python-mode-hook
 	  (lambda ()
