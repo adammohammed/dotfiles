@@ -188,6 +188,11 @@ There are two things you can do about this warning:
 (use-package blacken
   :ensure t)
 
+(use-package pyvenv
+   :ensure t
+   :config
+   (pyvenv-mode 1))
+
 (use-package python-pytest
   :ensure t
   :bind (("M-t" . python-pytest-function-dwim)
@@ -232,10 +237,6 @@ There are two things you can do about this warning:
         (make-comint-in-buffer "nosetests" buffer "bash" nil "-c" command)
         (display-buffer buffer)))))
 
-(use-package pyvenv
-  :ensure t
-  :config
-  (pyvenv-mode 1))
 
 (setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 
