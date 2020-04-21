@@ -7,7 +7,7 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 
- PS1="\u@\h:\W$ "
+PS1="\u@\h:\W$ "
 
 # Add /usr/local/bin/ to PATH
 export PATH=/usr/local/bin:~/bin:$PATH
