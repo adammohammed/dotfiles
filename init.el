@@ -28,7 +28,11 @@ There are two things you can do about this warning:
   (package-install 'use-package))
 
 ;;--------Use-package configuration--
-(setq use-package-always-ensure t)
+(use-package use-package
+  :config
+  (setq use-package-always-ensure t)
+  (setq use-package-compute-statistics t)
+  (setq use-package-verbose t))
 
 ;;------- Buffer configuration ------
 ;; If buffers changed on disk reload automatically
