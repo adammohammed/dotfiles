@@ -44,7 +44,15 @@ There are two things you can do about this warning:
 ;;------- Folder navigation ---------
 (use-package ido
   :init
-  (ido-mode t))
+  (ido-mode 1)
+  (ido-everywhere t)
+  :config
+  (setq ido-enable-flex-matching t))
+
+(use-package flx-ido
+  :config
+  (flx-ido-mode 1))
+
 
 (use-package projectile
   :ensure t
