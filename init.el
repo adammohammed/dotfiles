@@ -186,6 +186,13 @@ There are two things you can do about this warning:
   :bind (("M-t" . python-pytest-function-dwim)
          ("M-T" . python-pytest-file-dwim)))
 
+(use-package elpy
+  :init
+  (elpy-enable))
+
+;; If elpy-is slow you can instrument it
+;; (elp-instrument-package "elpy-")
+
 (add-hook 'python-mode-hook
 	  (lambda ()
             (anaconda-mode)
