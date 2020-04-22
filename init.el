@@ -38,16 +38,9 @@ There are two things you can do about this warning:
 (setq-default indent-tabs-mode nil)
 
 ;;------- Folder navigation ---------
-(use-package helm
-  :ensure t
-  :config (setq helm-split-window-inside-p t)
-  :bind (("M-x" . helm-M-x)
-	 ("C-x C-f" . helm-find-files)
-	 ("C-x f" . helm-recentf)
-	 ("C-x b" . helm-buffers-list)))
-
-(use-package helm-projectile
-  :ensure t)
+(use-package ido
+  :init
+  (ido-mode t))
 
 (use-package projectile
   :ensure t
@@ -55,8 +48,6 @@ There are two things you can do about this warning:
   (projectile-mode)
   :config
   (setq projectile-enable-caching t)
-  (setq projectile-switch-project-action 'helm-projectile)
-  (define-key projectile-command-map (kbd "p") 'helm-projectile-switch-project)
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
@@ -180,9 +171,6 @@ There are two things you can do about this warning:
 ;;     (venv-workon "venv")
 ;;     (add-to-list 'company-backends 'company-jedi))
 ;;   (add-hook 'python-mode-hook 'config/enable-company-jedi))
-
-;; ------- Replace Isearch with helm-
-(global-set-key (kbd "C-s") 'helm-occur)
 
 ;; ------- Python config -----------
 (use-package blacken
