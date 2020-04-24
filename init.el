@@ -61,7 +61,7 @@ There are two things you can do about this warning:
   :config
   (setq projectile-enable-caching t)
   :bind-keymap
-  ("C-c p" . projectile-command-map))
+  ("s-p" . projectile-command-map))
 
 ;; ------ Buffer navigation ---------
 (use-package ace-window
