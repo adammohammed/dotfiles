@@ -42,26 +42,32 @@ There are two things you can do about this warning:
 (setq-default indent-tabs-mode nil)
 
 ;;------- Folder navigation ---------
-(use-package ido
+(use-package ivy
   :init
-  (ido-mode 1)
-  (ido-everywhere t)
+  (ivy-mode 1)
   :config
-  (setq ido-enable-flex-matching t))
+  (setq ivy-use-virtual-buffers 'bookmarks)
+  :bind
+  (("C-c C-r" . ivy-resume)))
 
-(use-package flx-ido
-  :config
-  (flx-ido-mode 1))
-
+(use-package counsel
+  :bind
+  (("M-x" . counsel-M-x)
+   ("C-x C-f" . counsel-find-file)
+   ("C-c g" . counsel-git)
+   ("C-c j" . counsel-git-grep)))
 
 (use-package projectile
-  :ensure t
   :init
   (projectile-mode)
   :config
   (setq projectile-enable-caching t)
   :bind-keymap
-  ("s-p" . projectile-command-map))
+  ("C-c p" . projectile-command-map))
+
+(use-package counsel-projectile
+  :init
+  (counsel-projectile-mode 1))
 
 ;; ------ Buffer navigation ---------
 (use-package ace-window
