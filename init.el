@@ -325,10 +325,14 @@ There are two things you can do about this warning:
 ;; Markdown - github flavor
 (use-package markdown-mode
   :ensure t
-  :mode (("README\\.md'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :mode
+  (("\\.md\\'" . gfm-mode))
+  :init (setq markdown-command "multimarkdown")
+  :config
+  (setq markdown-header-scaling t)
+  (setq markdown-header-scaling-values '(1.5 1.4 1.2 1.1 1.0 1.0))
+  (set-face-attribute 'markdown-header-face nil :foreground "SkyBlue4"))
+
 ;; Yaml
 (use-package flycheck-yamllint
   :ensure t
