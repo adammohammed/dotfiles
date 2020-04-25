@@ -1,7 +1,6 @@
 os: osx
 
 before_install:
-- brew update
 - brew install emacs
 install:
 - emacs --batch -l init.el 2>&1 | grep Error || exit 0
