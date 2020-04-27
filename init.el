@@ -213,7 +213,6 @@ There are two things you can do about this warning:
 
 (add-hook 'python-mode-hook
 	  (lambda ()
-            (anaconda-mode)
 	    (fci-mode)
 	    (blacken-mode)
 	    (setq fill-column 80)))
