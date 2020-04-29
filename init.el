@@ -205,8 +205,8 @@ There are two things you can do about this warning:
          ("M-T" . python-pytest-file-dwim)))
 
 (use-package elpy
-  :init
-  (elpy-enable))
+  :init)
+
 
 ;; If elpy-is slow you can instrument it
 ;; (elp-instrument-package "elpy-")
