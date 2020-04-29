@@ -375,7 +375,10 @@ There are two things you can do about this warning:
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode)))
 
 ;; Org mode settings
-(setq org-image-actual-width nil)
+(use-package org
+  :config
+  (setq org-image-actual-width nil)
+  (setq org-todo-keywords '((sequence "TODO" "DOING" "REVIEW" "DONE"))))
 
 ;; Salt-mode
 (use-package salt-mode
