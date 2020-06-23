@@ -3,22 +3,7 @@
 
 ;;; Code:
 (require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (when no-ssl
-    (warn "\
-Your version of Emacs does not support SSL connections,
-which is unsafe because it allows man-in-the-middle attacks.
-There are two things you can do about this warning:
-1. Install an Emacs version that does support SSL and be safe.
-2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+(add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
 (package-initialize)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -27,18 +12,20 @@ There are two things you can do about this warning:
   (package-refresh-contents)
   (package-install 'use-package))
 
-;;--------Use-package configuration--
+(require 'use-package)
+
+;; Use-package configuration
 (use-package use-package
   :config
   (setq use-package-always-ensure t)
   (setq use-package-compute-statistics t)
   (setq use-package-verbose t))
 
-;;------- Buffer configuration ------
+;; Buffer configuration
 ;; If buffers changed on disk reload automatically
 (global-auto-revert-mode t)
 
-;;------- Basic global config -------
+;; Basic global config
 (setq-default indent-tabs-mode nil)
 
 (defun xah-unfill-paragraph ()
@@ -52,7 +39,8 @@ Version 2016-07-13"
     (fill-paragraph)))
 
 (global-set-key (kbd "M-Q") 'xah-unfill-paragraph)
-;;------- Folder navigation ---------
+
+;; Folder navigation
 (use-package ivy
   :init
   (ivy-mode 1)
@@ -80,7 +68,7 @@ Version 2016-07-13"
   :init
   (counsel-projectile-mode 1))
 
-;; ------ Buffer navigation ---------
+;; Buffer navigation
 (use-package ace-window
   :ensure t
   :bind
@@ -88,7 +76,7 @@ Version 2016-07-13"
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
-;; ------ Magit VC ------------------
+;; Magit VC
 (use-package magit
   :ensure t)
 
@@ -105,7 +93,7 @@ Version 2016-07-13"
 					       "backups"))))
 (show-paren-mode)
 
-;; ------ Theme Configs -------------
+;; Theme Configs
 
 (defun change-minimal-theme (light-theme)
   "Set the theme and comment colors.  LIGHT-THEME."
@@ -136,7 +124,7 @@ Version 2016-07-13"
   :ensure t
   :hook (after-init . doom-modeline-mode))
 
-;; ------- Window sizing -----------
+;; Window sizing
 (defun set-window-size-by-resolution ()
   "Change it so it isn't so damn tiny."
   (interactive)
@@ -150,7 +138,7 @@ Version 2016-07-13"
 
 (set-window-size-by-resolution)
 
-;; ------ Easy access to configs ----
+;; Easy access to configs
 (defun adam/find-init-file ()
   "This function opens up the init.el file."
   (interactive)
@@ -165,7 +153,7 @@ Version 2016-07-13"
 (global-set-key (kbd "C-c r") 'adam/reload-init-file)
 
 
-;; ------- Syntax checking ---------
+;; Syntax checking
 (use-package exec-path-from-shell
   :ensure t)
 (exec-path-from-shell-initialize)
@@ -176,7 +164,7 @@ Version 2016-07-13"
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; ------- Complete Anything -------
+;; Complete Anything
 (use-package company
   :ensure t
   :hook ((python-mode) . company-mode))
@@ -201,7 +189,7 @@ Version 2016-07-13"
 ;;     (add-to-list 'company-backends 'company-jedi))
 ;;   (add-hook 'python-mode-hook 'config/enable-company-jedi))
 
-;; ------- Python config -----------
+;; Python config
 (use-package blacken
   :ensure t)
 
@@ -263,7 +251,7 @@ Version 2016-07-13"
 
 (setenv "PYTHONPATH" (shell-command-to-string "$SHELL --login -c 'echo -n $PYTHONPATH'"))
 
-;; --------- Favorited files -----
+;; Favorited files
 
 (defun adam/day-to-day-notes ()
   "Opens your day to day notes"
@@ -271,11 +259,11 @@ Version 2016-07-13"
   (find-file "~/Notes/DayToDay2020.org"))
 (global-set-key (kbd "C-c f n") 'adam/day-to-day-notes)
 
-;; --------- Groovy ---------------
+;; Groovy
 (use-package groovy-mode
   :ensure t)
 
-;; --------- JS config -------------
+;; JS config
  (defface extra-whitespace-face
    '((t (:background "pale green")))
    "Used for tabs and such.")
