@@ -212,6 +212,7 @@ Version 2016-07-13"
 
 (add-hook 'python-mode-hook
 	  (lambda ()
+            (anaconda-mode)
 	    (fci-mode)
 	    (blacken-mode)
 	    (setq fill-column 80)))
