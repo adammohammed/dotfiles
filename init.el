@@ -203,12 +203,8 @@ Version 2016-07-13"
   :bind (("M-t" . python-pytest-function-dwim)
          ("M-T" . python-pytest-file-dwim)))
 
-(use-package elpy
-  :init)
-
-
-;; If elpy-is slow you can instrument it
-;; (elp-instrument-package "elpy-")
+(use-package anaconda-mode
+  :ensure t)
 
 (add-hook 'python-mode-hook
 	  (lambda ()
