@@ -41,6 +41,17 @@ There are two things you can do about this warning:
 ;;------- Basic global config -------
 (setq-default indent-tabs-mode nil)
 
+(defun xah-unfill-paragraph ()
+  "Replace newline chars in current paragraph by single spaces.
+This command does the inverse of `fill-paragraph'.
+
+URL `http://ergoemacs.org/emacs/emacs_unfill-paragraph.html'
+Version 2016-07-13"
+  (interactive)
+  (let ((fill-column most-positive-fixnum))
+    (fill-paragraph)))
+
+(global-set-key (kbd "M-Q") 'xah-unfill-paragraph)
 ;;------- Folder navigation ---------
 (use-package ivy
   :init
