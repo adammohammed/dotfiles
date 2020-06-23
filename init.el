@@ -407,7 +407,25 @@ Version 2016-07-13"
    (shell . t)
    (http . t)))
 
+(defun lua-busted-fuckups-fix ()
+  (save-excursion
+    (lua-forward-line-skip-blanks 'back)
+    (let* ((current-indentation (current-indentation))
+           (line (thing-at-point 'line t))
+           (busted-p (s-matches?
+                      (rx (+ bol (* space)
+                             (or "context" "describe" "it" "setup" "teardown")
+                             "("))
+                      line)))
+          (when busted-p
+            (+ current-indentation lua-indent-level)))))
 
+(defun rgc-lua-calculate-indentation-override (old-function &rest arguments)
+  (or (lua-busted-fuckups-fix)
+      (apply old-function arguments)))
+
+(advice-add #'lua-calculate-indentation-override
+            :around #'rgc-lua-calculate-indentation-override)
 
 (setq custom-file-dir "~/.emacs.d/")
 (setq custom-file (concat custom-file-dir "custom.el"))
