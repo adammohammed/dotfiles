@@ -124,6 +124,17 @@ Version 2016-07-13"
   :ensure t
   :hook (after-init . doom-modeline-mode))
 
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-nord t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
+
+(use-package all-the-icons
+  :ensure t)
+
 ;; Window sizing
 (defun set-window-size-by-resolution ()
   "Change it so it isn't so damn tiny."
