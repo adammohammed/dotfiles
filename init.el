@@ -107,7 +107,7 @@ Version 2016-07-13"
                              (set-face-foreground 'font-lock-comment-face "light green")
                              (set-face-foreground 'font-lock-comment-delimiter-face "light green")))))
 
-(defvar adam/use-theme "minimal")
+(defvar adam/use-theme "doom-nord")
 (defvar adam/enable-light-theme t)
 
 (use-package minimal-theme
@@ -118,7 +118,9 @@ Version 2016-07-13"
 
 ;; Enable theme based on setting
 (cond ((string= adam/use-theme "minimal")   (change-minimal-theme adam/enable-light-theme))
-      ((string= adam/use-theme "atom-dark") (load-theme 'atom-dark t)))
+      ((string= adam/use-theme "atom-dark") (load-theme 'atom-dark t))
+      ((string= adam/use-theme "doom-nord") (load-theme 'doom-nord t))
+      (t (load-theme 'doom-nord t)))
 
 (use-package doom-modeline
   :ensure t
