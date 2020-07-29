@@ -403,7 +403,7 @@ Version 2016-07-13"
    (shell . t)
    (http . t)))
 
-(defun lua-busted-fuckups-fix ()
+(defun lua-busted-indent-fix ()
   (save-excursion
     (lua-forward-line-skip-blanks 'back)
     (let* ((current-indentation (current-indentation))
@@ -417,11 +417,17 @@ Version 2016-07-13"
             (+ current-indentation lua-indent-level)))))
 
 (defun rgc-lua-calculate-indentation-override (old-function &rest arguments)
-  (or (lua-busted-fuckups-fix)
+  (or (lua-busted-indent-fix)
       (apply old-function arguments)))
 
 (advice-add #'lua-calculate-indentation-override
             :around #'rgc-lua-calculate-indentation-override)
+
+;; Line breaks
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
+
 
 (setq custom-file-dir "~/.emacs.d/")
 (setq custom-file (concat custom-file-dir "custom.el"))
