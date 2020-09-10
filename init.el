@@ -41,13 +41,25 @@ Version 2016-07-13"
 (global-set-key (kbd "M-Q") 'xah-unfill-paragraph)
 
 ;; Folder navigation
+
 (use-package ivy
   :init
   (ivy-mode 1)
   :config
   (setq ivy-use-virtual-buffers 'bookmarks)
+  (defun adam-ivy-format-function-prefix (cands)
+    "Transform CANDS into a string with prefix on default candidate"
+    (ivy--format-function-generic
+     (lambda (str)
+       (concat " " (ivy--add-face str 'ivy-current-match)))
+     (lambda (str)
+       (concat "   " str))
+     cands
+     "\n"))
   :bind
   (("C-c C-r" . ivy-resume)))
+
+
 
 (use-package counsel
   :bind
