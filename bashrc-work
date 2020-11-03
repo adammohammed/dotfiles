@@ -10,7 +10,7 @@ HISTFILESIZE=2000
 PS1="\u@\h:\W$ "
 
 # Add /usr/local/bin/ to PATH
-export PATH=/usr/local/bin:~/bin:$PATH
+export PATH=/usr/local/bin:~/bin:/usr/local/opt/openssl/bin:$PATH
 
 # Aliases
 alias ls='ls -G'
@@ -34,6 +34,7 @@ alias k=kubectl
 complete -o default -F __start_kubectl kubectl
 complete -o default -F __start_kubectl k
 
+eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 [[ -r "$HOME/dotfiles/completion.sh" ]] &&  . "$HOME/dotfiles/completion.sh"
