@@ -429,7 +429,6 @@ Version 2017-01-08"
   :ensure t
   :mode "\\.sls\\'")
 
-
 (use-package ob-http
   :ensure t)
 
@@ -466,6 +465,11 @@ Version 2017-01-08"
 
 (advice-add #'lua-calculate-indentation-override
             :around #'rgc-lua-calculate-indentation-override)
+
+
+;; Perl configuration
+(add-to-list 'auto-mode-alist '("\\.\\([pP]\\([Llm]\\|erl\\|od\\)\\|al\\)\\'" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
 
 ;; Line breaks
 (use-package page-break-lines
