@@ -79,6 +79,7 @@ Version 2017-01-08"
        (concat "   " str))
      cands
      "\n"))
+  (setcdr (assq 't ivy-format-functions-alist) #'adam-ivy-format-function-prefix)
   :bind
   (("C-c C-r" . ivy-resume)))
 
