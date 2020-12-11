@@ -392,14 +392,9 @@ Version 2017-01-08"
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 
-;; Enable docker through tramp/helm
+;; Enable docker through tramp
 (use-package docker-tramp
   :ensure t)
-
-(use-package helm-tramp
-  :ensure t
-  :bind
-  (("C-x t" . 'helm-tramp)))
 
 ;; Enable emoji support
 (use-package emojify
