@@ -152,16 +152,6 @@ Version 2017-01-08"
 (use-package atom-dark-theme
   :ensure t)
 
-;; Enable theme based on setting
-(cond ((string= adam/use-theme "minimal")   (change-minimal-theme adam/enable-light-theme))
-      ((string= adam/use-theme "atom-dark") (load-theme 'atom-dark t))
-      ((string= adam/use-theme "doom-nord") (load-theme 'doom-nord t))
-      (t (load-theme 'doom-nord t)))
-
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode))
-
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
@@ -172,6 +162,17 @@ Version 2017-01-08"
 
 (use-package all-the-icons
   :ensure t)
+
+;; Enable theme based on setting
+(cond ((string= adam/use-theme "minimal")   (change-minimal-theme adam/enable-light-theme))
+      ((string= adam/use-theme "atom-dark") (load-theme 'atom-dark t))
+      ((string= adam/use-theme "doom-nord") (load-theme 'doom-nord t))
+      (t (load-theme 'doom-nord t)))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
 
 ;; Window sizing
 (defun set-window-size-by-resolution ()
