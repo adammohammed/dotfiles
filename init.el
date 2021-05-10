@@ -465,6 +465,25 @@ Version 2017-01-08"
 
 
 ;; Perl configuration
+(setq lsp-keymap-prefix "s-l")
+(use-package lsp-mode
+  :hook ((cperl-mode . lsp))
+  :config
+  (add-to-list 'cperl-style-alist '("LinodePerl"
+                          (cperl-indent-level . 4)
+                          (cperl-brace-offset . 0)
+                          (cperl-continued-brace-offset . 0)
+                          (cperl-label-offset . -4)
+                          (cperl-continued-statement-offset . 4)
+                          (cperl-close-paren-offset . -4)
+                          (cperl-indent-parens-as-block . t)
+                          (cperl-merge-trailing-else . t)))
+  :commands lsp)
+(use-package lsp-ui :commands lsp-ui-mode)
+
+
+
+
 (add-to-list 'auto-mode-alist '("\\.\\([pP]\\([Llm]\\|erl\\|od\\)\\|al\\)\\'" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
 
