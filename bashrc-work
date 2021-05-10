@@ -24,6 +24,8 @@ alias opgetpass="jq -r '.details.fields[] | select(.designation==\"password\").v
 function 1p {
     op get item "$@" | opgetpass
 }
+alias obja="aws s3 --endpoint=http://alpha.linodeobjects.com"
+alias objapi="aws s3api --endpoint=http://alpha.linodeobjects.com"
 export GOPATH=$HOME/go
 export PATH="$PATH:/opt/apache-maven-3.6.1/bin:~/bin:$GOPATH/bin:/Users/amohammed/repos/knative/istio-1.4.3/bin"
 
