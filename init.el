@@ -473,6 +473,19 @@ Version 2017-01-08"
   :config
   (global-page-break-lines-mode))
 
+;; Dired hacks
+(defun cert-info (filename bufname)
+  "Shows the details of a certificate given a filename output to the buffer"
+  (with-output-to-temp-buffer bufname
+    (shell-command (format "openssl x509 -text -noout -in %s" filename) bufname)
+    (pop-to-buffer bufname)
+    (local-set-key (kbd "q") (quit-window t))))
+(defun adam/dired-x509-info ()
+  "Retrieve certificate information for file under point in Dired"
+  (interactive)
+  (cert-info (dired-get-file-for-visit) "*cert-info*"))
+
+(define-key dired-mode-map (kbd "C-c t") 'adam/dired-x509-info)
 
 (setq custom-file-dir "~/.emacs.d/")
 (setq custom-file (concat custom-file-dir "custom.el"))
