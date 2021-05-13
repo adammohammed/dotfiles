@@ -210,6 +210,7 @@ Version 2017-01-08"
 (use-package exec-path-from-shell
   :ensure t)
 (exec-path-from-shell-initialize)
+
 (use-package flycheck
   :ensure t
   :init
@@ -220,8 +221,14 @@ Version 2017-01-08"
 ;; Complete Anything
 (use-package company
   :ensure t
+  :config
+  (global-company-mode t)
   :hook ((python-mode) . company-mode))
 
+(use-package company-quickhelp
+  :ensure t
+  :config
+  (company-quickhelp-mode))
 
 (use-package yasnippet
   :ensure t
