@@ -111,6 +111,7 @@ Version 2017-01-08"
   :init
   (counsel-projectile-mode 1))
 
+
 ;; Buffer navigation
 (use-package ace-window
   :ensure t
@@ -123,10 +124,7 @@ Version 2017-01-08"
 (use-package magit
   :ensure t)
 
-(use-package fill-column-indicator
-  :ensure t)
-
-(global-set-key (kbd "M-/") 'company-complete)
+;; Better defaults
 (setq save-interprogram-paste-before-kill t
       mouse-yank-at-point t
       require-final-newline t
@@ -135,6 +133,7 @@ Version 2017-01-08"
       backup-directory-alist `(("." . ,(concat user-emacs-directory
 					       "backups"))))
 (show-paren-mode)
+(global-display-fill-column-indicator-mode t)
 
 ;; Theme Configs
 
