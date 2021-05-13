@@ -155,9 +155,6 @@ Version 2017-01-08"
 (use-package minimal-theme
   :ensure t)
 
-(use-package atom-dark-theme
-  :ensure t)
-
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
