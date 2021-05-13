@@ -28,6 +28,13 @@
 ;; Basic global config
 (setq-default indent-tabs-mode nil)
 
+;; os-specific key-bindings
+(defvar *is-a-mac* (string= system-type "darwin"))
+(when *is-a-mac*
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none))
+
+
 (defun xah-fill-or-unfill ()
   "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or “unfill”.
 When there is a text selection, act on the selection, else, act on a text block separated by blank lines.
