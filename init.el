@@ -225,6 +225,10 @@ Version 2017-01-08"
   (global-company-mode t)
   :hook ((python-mode) . company-mode))
 
+(use-package dap-mode
+  :ensure t
+  :config (require 'dap-python))
+
 (use-package company-quickhelp
   :ensure t
   :config
@@ -269,7 +273,6 @@ Version 2017-01-08"
 (add-hook 'python-mode-hook
 	  (lambda ()
             (anaconda-mode)
-	    (fci-mode)
 	    (blacken-mode)
 	    (setq fill-column 80)))
 
@@ -280,6 +283,7 @@ Version 2017-01-08"
       (unless name
         (user-error "No class/function found"))
       name)))
+
 (defun adam/nose-run-test-at-point ()
   "this is the docstring"
   (interactive)
@@ -475,19 +479,22 @@ Version 2017-01-08"
 
 
 ;; Perl configuration
+(use-package cperl-mode
+  :ensure t
+  :config
+  (add-to-list 'cperl-style-alist '("LinodePerl"
+                                    (cperl-indent-level . 4)
+                                    (cperl-brace-offset . 0)
+                                    (cperl-continued-brace-offset . 0)
+                                    (cperl-label-offset . -4)
+                                    (cperl-continued-statement-offset . 4)
+                                    (cperl-close-paren-offset . -4)
+                                    (cperl-indent-parens-as-block . t)
+                                    (cperl-merge-trailing-else . t))))
+
 (setq lsp-keymap-prefix "s-l")
 (use-package lsp-mode
   :hook ((cperl-mode . lsp))
-  :config
-  (add-to-list 'cperl-style-alist '("LinodePerl"
-                          (cperl-indent-level . 4)
-                          (cperl-brace-offset . 0)
-                          (cperl-continued-brace-offset . 0)
-                          (cperl-label-offset . -4)
-                          (cperl-continued-statement-offset . 4)
-                          (cperl-close-paren-offset . -4)
-                          (cperl-indent-parens-as-block . t)
-                          (cperl-merge-trailing-else . t)))
   :commands lsp)
 (use-package lsp-ui :commands lsp-ui-mode)
 
@@ -512,9 +519,19 @@ Version 2017-01-08"
 (defun adam/dired-x509-info ()
   "Retrieve certificate information for file under point in Dired"
   (interactive)
-  (cert-info (dired-get-file-for-visit) "*cert-info*"))
+  (let ((bufname (get-buffer-create "*cert-info*")))
+    (cert-info (dired-get-file-for-visit) bufname)))
 
 (define-key dired-mode-map (kbd "C-c t") 'adam/dired-x509-info)
+
+;; Tramp configuration
+(setq tramp-default-method "ssh")
+
+;; Common-Lisp
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
 
 (setq custom-file-dir "~/.emacs.d/")
 (setq custom-file (concat custom-file-dir "custom.el"))
