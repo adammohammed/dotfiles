@@ -18,7 +18,7 @@ function auth_scale_grid {
     totp=$(op get totp "ScaleGrid Staging")
     payload=$(echo $login_json | jq "{username: .username, password: .password, inputCode: \"$totp\"}")
 
-    curl https://console.staging.linodedb.net/login -c $SG_COOKIE_FILE -d "${payload}"
+    echo $(curl https://console.staging.linodedb.net/login -c $SG_COOKIE_FILE -d "${payload}")
 }
 
 function sgcurl {
