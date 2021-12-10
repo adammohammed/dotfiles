@@ -204,6 +204,15 @@
 (advice-add #'lua-calculate-indentation-override
             :around #'rgc-lua-calculate-indentation-override)
 
+;; Make sure to get SSH_AUTH_SOCK from shell
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (dolist (var '("SSH_AUTH_SOCK"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (exec-path-from-shell-initialize))
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
