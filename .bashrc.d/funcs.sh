@@ -16,6 +16,7 @@ function curlv {
 }
 
 function curld {
+    [[ -z "${LINODE_API_DEV_TOKEN}" ]] && load_api_tokens
     local url="https://api.dev.linode.com/v4"
     local method=""
     local data_flag=""
@@ -31,6 +32,7 @@ function curld {
 }
 
 function curlp {
+    [[ -z "${LINODE_API_TOKEN}" ]] && load_api_tokens
     local url="https://api.linode.com/v4"
     local method=""
     local data_flag=""
