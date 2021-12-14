@@ -50,6 +50,6 @@ function sgcurl {
 	method="-X $2"
     fi
 
-    curl $flags -b $SG_COOKIE_FILE -w "\n" $method -H "Accept: application/json" "https://console.staging.linodedb.net/$1" $data_flag $data
+    curl $flags -b $SG_COOKIE_FILE -w "\n" $method -H"Accept: application/json" "https://console.staging.linodedb.net/$1" $data_flag "$data"
 
 }
