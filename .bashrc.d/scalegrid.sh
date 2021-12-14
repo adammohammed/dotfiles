@@ -29,13 +29,12 @@ function sgcurl {
 
 
     local OPTIND o flags
+    flags="-s"
     while getopts ":v" o; do
 	case "${o}" in
 	    v)
 		flags="-i"
 		;;
-	    *)
-		flags="-s"
 	esac
     done
     shift $((OPTIND-1))
