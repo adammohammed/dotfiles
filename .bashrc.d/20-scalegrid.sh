@@ -1,7 +1,7 @@
 #!/bin/bash
 function auth_scale_grid {
-    mkdir -p "${HOME}/.cache/scalegrid"
-    SG_COOKIE_FILE=$(mktemp --tmpdir="${HOME}/.cache/scalegrid" sg-coookie.XXXXX)
+    mkdir -p "${HOME}/.cache/scalegrid/"
+    SG_COOKIE_FILE="${HOME}/.cache/scalegrid/sgsession"
     export SG_COOKIE_FILE
     local login_json=""
     local totp=""
@@ -9,6 +9,7 @@ function auth_scale_grid {
 
 
     # check if item exists
+    refresh_1p
     if ! op get item "ScaleGrid Staging" >/dev/null; then
 	unset SG_COOKIE_FILE
 	return 1;
