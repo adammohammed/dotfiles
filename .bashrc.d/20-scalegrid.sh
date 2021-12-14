@@ -1,8 +1,8 @@
 #!/bin/bash
+export SG_COOKIE_FILE="${HOME}/.cache/scalegrid/sgsession"
+
 function auth_scale_grid {
     mkdir -p "${HOME}/.cache/scalegrid/"
-    SG_COOKIE_FILE="${HOME}/.cache/scalegrid/sgsession"
-    export SG_COOKIE_FILE
     local login_json=""
     local totp=""
     local payload=""
@@ -22,12 +22,9 @@ function auth_scale_grid {
     echo $(curl https://console.staging.linodedb.net/login -c $SG_COOKIE_FILE -d "${payload}")
 }
 
-function sgcurl {
-    if [[ -z "${SG_COOKIE_FILE}" ]]; then
-	echo "Please run auth_scale_grid first!"
-	return 1
-    fi
 
+function sgcurl {
+    [[ ! -f "${SG_COOKIE_FILE}" ]] && auth_scale_grid
 
     local OPTIND o flags
     flags="-s"
