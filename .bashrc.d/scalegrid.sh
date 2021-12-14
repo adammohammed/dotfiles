@@ -28,6 +28,18 @@ function sgcurl {
     fi
 
 
+    local OPTIND o flags
+    while getopts ":v" o; do
+	case "${o}" in
+	    v)
+		flags="-i"
+		;;
+	    *)
+		flags="-s"
+	esac
+    done
+    shift $((OPTIND-1))
+
     local method=""
     local data_flag=""
     local data=""
@@ -39,5 +51,6 @@ function sgcurl {
 	method="-X $2"
     fi
 
-    echo $(curl -s -b $SG_COOKIE_FILE $method https://console.staging.linodedb.net/$1 $data_flag "$data")
+    curl $flags -b $SG_COOKIE_FILE -w "\n" $method -H "Accept: application/json" "https://console.staging.linodedb.net/$1" $data_flag $data
+
 }
