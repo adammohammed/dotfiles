@@ -128,7 +128,14 @@
 ;; IDE features
 (use-package lsp-mode
   :init
-  (setq lsp-keymap-prefix "C-c l"))
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
+  (setq lsp-rust-server 'rust-analyzer))
+
+
+
+(use-package lsp-ui :commands lsp-ui-mode)
 
 (use-package dap-mode
   :config
@@ -213,6 +220,60 @@
   (exec-path-from-shell-initialize))
 
 
+;; DB Configs
+(use-package sql
+  :config
+  (sql-set-product-feature 'mysql :prompt-regexp "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z]*\\]> ")
+  (setq sql-connection-alist
+	'((alpha-db (sql-product 'mysql)
+		    (sql-server "127.0.0.1")
+		    (sql-port 43306)
+		    (sql-user "***REMOVED***")
+		    (sql-password "***REMOVED***")
+		    (sql-database "hosting"))
+	  (dev-db (sql-product 'mysql)
+		  (sql-server "127.0.0.1")
+		  (sql-port 3306)
+		  (sql-user "root")
+		  (sql-password "***REMOVED***")
+		  (sql-database "hosting")))))
+
+(defun connect-alpha-db ()
+  (interactive)
+  (sql-connect 'alpha-db))
+
+(defun connect-dev-db ()
+  (interactive)
+  (setq sql-product 'mysql)
+  (sql-connect 'dev-db))
+
+(add-hook 'sql-interactive-mode-hook
+	  (lambda ()
+	    (toggle-truncate-lines t)))
+
+
+(defun generate-bapi-changelog (tag)
+  (interactive "stag:")
+  (progn
+    (message (format "Trying to build changelog for %s in " tag default-directory))
+    (with-output-to-temp-buffer "*bapi-changelog*"
+      (shell-command (format "~/devenv/venv/bin/gitchangelog ...%s" tag) "*bapi-changelog*"))))
+;; Rust
+
+(use-package rustic
+  :ensure
+  :bind (:map rustic-mode-map
+	      ("M-j" . lsp-ui-imenu)
+	      ("M-?" . lsp-find-references)
+	      ("C-c C-c l" . flycheck-list-errors)
+              ("C-c C-c r" . lsp-rename)
+              ("C-c C-c q" . lsp-workspace-restart)
+              ("C-c C-c Q" . lsp-workspace-shutdown)
+              ("C-c C-c s" . lsp-rust-analyzer-status))
+  :config
+  (setq rustic-format-on-save t)
+  :hook
+  (rustic-mode . lsp-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
