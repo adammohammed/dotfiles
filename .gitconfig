@@ -6,5 +6,8 @@
 [user]
 	name = Adam Mohammed
 	email = amohammed@linode.com
+	signingKey = 4014A04F35BC1D95
 [core]
 	excludesfile = /home/amohammed/.gitignore
+[commit]
+	gpgSign = true
