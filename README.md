@@ -1,11 +1,13 @@
 # Dotfiles
 
 [![Build Status](https://travis-ci.org/adammohammed/dotfiles.svg?branch=master)](https://travis-ci.org/adammohammed/dotfiles)
-## Just get emacs 26+ ##
-Symlink the init.el file to the emacs.d directory
+
+## Do a bare repo setup
 
 ```bash
-$ pip install -r requirements.txt
-$ mkdir -p ~/dotfiles/init.el
-$ ln -s ~/dotfiles/init.el ~/.emacs.d/init.el
+$ git clone --bare https://www.github.com/adammohammed/dotfiles.git $HOME/.dotfiles.git
+echo ".dotfiles.git" >> .gitignore
+echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"' >> $HOME/.zshrc
+dotfiles checkout
+dotfiles config --local status.showUntrackedFiles no
 ```
