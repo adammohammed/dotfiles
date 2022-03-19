@@ -7,7 +7,7 @@
 ```bash
 $ git clone --bare https://www.github.com/adammohammed/dotfiles.git $HOME/.dotfiles.git
 echo ".dotfiles.git" >> .gitignore
-echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"' >> $HOME/.zshrc
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
 dotfiles checkout
 dotfiles config --local status.showUntrackedFiles no
 ```
