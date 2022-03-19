@@ -10,7 +10,7 @@
 (global-auto-revert-mode t)
 (setq indent-tabs-mode nil)
 
-(defvar custom-file-dir "~/.emacs.d/" "Default Directoy to store custom.el.")
+(defvar custom-file-dir "~/.emacs.d/" "Default directory to store custom.el file.")
 (setq custom-file (concat custom-file-dir "custom.el"))
 (load custom-file 'noerror)
 
@@ -179,7 +179,7 @@ Version 2017-01-08"
   (setq lsp-keymap-prefix "C-c l")
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
-  (setq lsp-rust-server 'rust-analyzer))
+  (defvar lsp-rust-server 'rust-analyzer))
 
 
 
@@ -217,9 +217,6 @@ Version 2017-01-08"
 
 ;;  Terraform
 (use-package terraform-mode)
-
-;; OpenAPI
-(require 'swagger-mode)
 
 ;; Yaml
 (use-package yaml-mode)
@@ -295,11 +292,10 @@ Version 2017-01-08"
 (defun generate-bapi-changelog (tag)
   (interactive "stag:")
   (progn
-    (message (format "Trying to build changelog for %s in " tag default-directory))
+    (message (format "Trying to build changelog for %s in %s" tag default-directory))
     (with-output-to-temp-buffer "*bapi-changelog*"
       (shell-command (format "~/devenv/venv/bin/gitchangelog ...%s" tag) "*bapi-changelog*"))))
 ;; Rust
-
 (use-package rustic
   :ensure
   :bind (:map rustic-mode-map
