@@ -260,31 +260,23 @@ Version 2017-01-08"
   :config
   (sql-set-product-feature 'mysql :prompt-regexp "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z]*\\]> ")
   (setq sql-connection-alist
-	'((alpha-db (sql-product 'mysql)
-		    (sql-server "127.0.0.1")
-		    (sql-port 43306)
-		    (sql-user "***REMOVED***")
-		    (sql-password "***REMOVED***")
-		    (sql-database "hosting"))
-	  (dev-db (sql-product 'mysql)
-		  (sql-server "127.0.0.1")
-		  (sql-port 3306)
-		  (sql-user "root")
-		  (sql-password "***REMOVED***")
-		  (sql-database "hosting")))))
+	'((preprod-db
+	   (sql-product 'mysql)
+	   (sql-server "127.0.0.1")
+	   (sql-port 43306)
+	   (sql-user "<SOME_USER>")
+	   (sql-password "<SOME_PASSWORD>")
+	   (sql-database "hosting"))))
+  (defun connect-alpha-db ()
+    (interactive)
+    (sql-connect 'alpha-db))
+  (defun connect-dev-db ()
+    (interactive)
+    (setq sql-product 'mysql)
+    (sql-connect 'dev-db))
 
-(defun connect-alpha-db ()
-  (interactive)
-  (sql-connect 'alpha-db))
-
-(defun connect-dev-db ()
-  (interactive)
-  (setq sql-product 'mysql)
-  (sql-connect 'dev-db))
-
-(add-hook 'sql-interactive-mode-hook
-	  (lambda ()
-	    (toggle-truncate-lines t)))
+  :hook
+  ((sql-interactive-mode . (lambda () (toggle-truncate-lines t)))))
 
 
 (defun generate-bapi-changelog (tag)
