@@ -148,7 +148,7 @@ Version 2017-01-08"
   (load-file "~/.emacs.d/init.el"))
 
 (global-set-key (kbd "C-c m i") 'adam/find-init-file)
-(global-set-key (kbd "C-c m r") 'adam/reload-init-file).
+(global-set-key (kbd "C-c m r") 'adam/reload-init-file)
 
 (use-package markdown-mode)
 
