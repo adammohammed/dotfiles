@@ -10,7 +10,7 @@
 (global-auto-revert-mode t)
 (setq indent-tabs-mode nil)
 
-(setq custom-file-dir "~/.emacs.d/")
+(defvar custom-file-dir "~/.emacs.d/" "Default Directoy to store custom.el.")
 (setq custom-file (concat custom-file-dir "custom.el"))
 (load custom-file 'noerror)
 
@@ -136,6 +136,19 @@ Version 2017-01-08"
   :init
   (doom-modeline-mode))
 
+;; Easy access to configs
+(defun adam/find-init-file ()
+  "This function opens up the init.el file."
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(defun adam/reload-init-file ()
+  "This function reloads the init.el file anywhere."
+  (interactive)
+  (load-file "~/.emacs.d/init.el"))
+
+(global-set-key (kbd "C-c m i") 'adam/find-init-file)
+(global-set-key (kbd "C-c m r") 'adam/reload-init-file).
 
 (use-package markdown-mode)
 
@@ -302,16 +315,26 @@ Version 2017-01-08"
   :hook
   (rustic-mode . lsp-mode))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("1704976a1797342a1b4ea7a75bdbb3be1569f4619134341bd5a4c1cfb16abad4" default)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Dired hacks
+(defun cert-info (filename bufname)
+  "Shows the details of a certificate given a filename output to the buffer"
+  (with-output-to-temp-buffer bufname
+    (shell-command (format "openssl x509 -text -noout -in %s" filename) bufname)
+    (pop-to-buffer bufname)
+    (local-set-key (kbd "q") (quit-window t))))
+(defun adam/dired-x509-info ()
+  "Retrieve certificate information for file under point in Dired"
+  (interactive)
+  (let ((bufname (get-buffer-create "*cert-info*")))
+    (cert-info (dired-get-file-for-visit) bufname)))
+
+(define-key dired-mode-map (kbd "C-c t") 'adam/dired-x509-info)
+
+;; Tramp configuration
+(setq tramp-default-method "ssh")
+
+;; Common-Lisp
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
