@@ -1,3 +1,4 @@
+return
 if [[ -z "${OP_SESSION_FILE}" ]]; then
     mkdir -p "${HOME}/.cache/1password"
     export OP_SESSION_FILE="${HOME}/.cache/1password/1psession"

@@ -1,5 +1,6 @@
-;;; Init.el --- Emacs config
+;;; init.el --- Initialization file for Emacs
 ;;; Commentary:
+
 
 ;;; Code:
 (require 'package)
@@ -30,10 +31,7 @@
 	     (expand-file-name "private" user-emacs-directory))
 
 (defun xah-fill-or-unfill ()
-  "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or “unfill”.
-When there is a text selection, act on the selection, else, act on a text block separated by blank lines.
-URL `http://ergoemacs.org/emacs/modernization_fill-paragraph.html'
-Version 2017-01-08"
+  "Reformat current paragraph or region to `fill-column' stuff."
   (interactive)
   ;; This command symbol has a property “'compact-p”, the possible values are t and nil. This property is used to easily determine whether to compact or uncompact, when this command is called again
   (let ( ($compact-p
@@ -237,6 +235,7 @@ Version 2017-01-08"
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 (defun lua-busted-indent-fix ()
+  "Fix issue with lua indenting."
   (save-excursion
     (lua-forward-line-skip-blanks 'back)
     (let* ((current-indentation (current-indentation))
@@ -250,6 +249,7 @@ Version 2017-01-08"
             (+ current-indentation lua-indent-level)))))
 
 (defun rgc-lua-calculate-indentation-override (old-function &rest arguments)
+  "Lua hook to fix indentation before passing to OLD-FUNCTION with ARGUMENTS."
   (or (lua-busted-indent-fix)
       (apply old-function arguments)))
 
@@ -289,12 +289,6 @@ Version 2017-01-08"
   ((sql-interactive-mode . (lambda () (toggle-truncate-lines t)))))
 
 
-(defun generate-bapi-changelog (tag)
-  (interactive "stag:")
-  (progn
-    (message (format "Trying to build changelog for %s in %s" tag default-directory))
-    (with-output-to-temp-buffer "*bapi-changelog*"
-      (shell-command (format "~/devenv/venv/bin/gitchangelog ...%s" tag) "*bapi-changelog*"))))
 ;; Rust
 (use-package rustic
   :ensure
@@ -313,13 +307,13 @@ Version 2017-01-08"
 
 ;; Dired hacks
 (defun cert-info (filename bufname)
-  "Shows the details of a certificate given a filename output to the buffer"
+  "Show the details of a certificate given a FILENAME output to the buffer BUFNAME."
   (with-output-to-temp-buffer bufname
     (shell-command (format "openssl x509 -text -noout -in %s" filename) bufname)
     (pop-to-buffer bufname)
     (local-set-key (kbd "q") (quit-window t))))
 (defun adam/dired-x509-info ()
-  "Retrieve certificate information for file under point in Dired"
+  "Retrieve certificate information for file under point in Dired."
   (interactive)
   (let ((bufname (get-buffer-create "*cert-info*")))
     (cert-info (dired-get-file-for-visit) bufname)))

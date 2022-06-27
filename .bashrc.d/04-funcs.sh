@@ -1,5 +1,5 @@
 #!/bin/bash
-
+return
 function curlv {
     local url="https://api.lindev.local/v4"
     local method=""
@@ -33,7 +33,7 @@ function curld {
 
 function curlp {
     [[ -z "${LINODE_API_TOKEN}" ]] && load_api_tokens
-    local url="https://api.linode.com/v4"
+    local url="https://api.linode.com/v4beta"
     local method=""
     local data_flag=""
     local data=""
