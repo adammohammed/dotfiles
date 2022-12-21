@@ -1,15 +1,20 @@
-;;; init.el --- Initialization file for Emacs
-;;; Commentary:
-
-
-;;; Code:
-(require 'package)
-(add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
-(package-initialize)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-auto-revert-mode t)
 (setq indent-tabs-mode nil)
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
 (defvar custom-file-dir "~/.emacs.d/" "Default directory to store custom.el file.")
 (setq custom-file (concat custom-file-dir "custom.el"))
@@ -175,10 +180,13 @@
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
+  :commands (lsp lsp-deferred lsp-format-buffer lsp-organize-imports lsp-go-install-save-hooks)
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
-  (defvar lsp-rust-server 'rust-analyzer))
-
+  (defvar lsp-rust-server 'rust-analyzer)
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t)))
 
 
 (use-package lsp-ui :commands lsp-ui-mode)
@@ -211,7 +219,7 @@
 ;; Golang
 (use-package go-mode
   :hook
-  ((go-mode . lsp-deferred)))
+  ((go-mode . eglot-ensure)))
 
 ;;  Terraform
 (use-package terraform-mode)
@@ -312,6 +320,7 @@
     (shell-command (format "openssl x509 -text -noout -in %s" filename) bufname)
     (pop-to-buffer bufname)
     (local-set-key (kbd "q") (quit-window t))))
+
 (defun adam/dired-x509-info ()
   "Retrieve certificate information for file under point in Dired."
   (interactive)
@@ -325,6 +334,26 @@
 
 ;; Common-Lisp
 (use-package slime
-  :ensure t
   :config
-  (setq inferior-lisp-program "sbcl"))
+  (setq inferior-lisp-program "sbcl")
+  (setq slime-contribs '(slime-fancy slime-tramp slime-quicklisp)))
+
+;; Ruby mode
+(use-package rufo
+  :hook
+  (ruby-mode . rufo-minor-mode))
+
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode)
+  :hook
+  ((tree-sitter-on-after . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs)
+(use-package ts-fold
+  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
+  :hook
+  ((ruby-mode . ts-fold-indicators-mode)))
+
+
+;; (require 'devcontainers-mode)
