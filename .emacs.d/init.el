@@ -29,6 +29,11 @@
 
 (straight-use-package 'use-package)
 
+(defcustom adam/all-the-icons-installed-p nil
+  "Variable that tells init-file whether or not fonts have been installed, reset to nil to force reinstall."
+  :type 'boolean
+  :options '(nil t))
+
 (defun xah-fill-or-unfill ()
   "Reformat current paragraph or region to `fill-column' stuff."
   (interactive)
@@ -134,7 +139,11 @@
   (doom-themes-org-config))
 
 (use-package all-the-icons
-  :straight t)
+  :straight t
+  :init
+  (unless adam/all-the-icons-installed-p
+    (all-the-icons-install-fonts t)
+    (customize-save-variable 'adam/all-the-icons-installed-p t)))
 
 
 (use-package doom-modeline
