@@ -7,3 +7,11 @@ if [[ ":$PATH:" != *":/usr/local/go/bin:"* ]]; then
 fi
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c"
+
+PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# Load up rust env
+if [[ -d "$HOME/.cargo" ]]; then
+    . "$HOME/.cargo/env"
+fi
+
