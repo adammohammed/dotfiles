@@ -18,4 +18,4 @@
 	format = ssh
 
 [gpg "ssh"]
-	allowedSignersFile = /Users/admohammed/.config/git/allowed_signers
+	allowedSignersFile = ~/.config/git/allowed_signers
