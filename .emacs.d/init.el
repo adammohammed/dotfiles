@@ -1,7 +1,15 @@
+;;; init.el --- Initialization file for Emacs
+;;; Commentary:
+
+;;; Code:
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-auto-revert-mode t)
 (setq indent-tabs-mode nil)
+
+(defvar custom-file-dir "~/.emacs.d/" "Default directory to store custom.el file.")
+(setq custom-file (concat custom-file-dir "custom.el"))
+(load custom-file 'noerror)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -16,24 +24,10 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-(defvar custom-file-dir "~/.emacs.d/" "Default directory to store custom.el file.")
-(setq custom-file (concat custom-file-dir "custom.el"))
-(load custom-file 'noerror)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-
-(use-package use-package
-  :config
-  (setq use-package-always-ensure t)
-  (setq use-package-compute-statistics t)
-  (setq use-package-verbose t))
-
 (add-to-list 'load-path
 	     (expand-file-name "private" user-emacs-directory))
+
+(straight-use-package 'use-package)
 
 (defun xah-fill-or-unfill ()
   "Reformat current paragraph or region to `fill-column' stuff."
@@ -68,6 +62,7 @@
 (global-set-key (kbd "M-Q") 'xah-fill-or-unfill)
 
 (use-package ivy
+  :straight t
   :init
   (ivy-mode 1)
   :config
@@ -85,6 +80,7 @@
   :bind (("C-c C-r" . ivy-resume)))
 
 (use-package counsel
+  :straight t
   :bind
   (("M-x" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
@@ -92,6 +88,7 @@
    ("C-c j" . counsel-git-grep)))
 
 (use-package projectile
+  :straight t
   :init
   (projectile-mode)
   :config
@@ -100,18 +97,21 @@
   ("C-c p" . projectile-command-map))
 
 (use-package counsel-projectile
+  :straight t
   :init
   (counsel-projectile-mode 1))
 
 ;; Buffer navigation
 (use-package ace-window
+  :straight t
   :bind
   ("M-o" . 'ace-window)
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; Magit VC
-(use-package magit)
+(use-package magit
+  :straight t)
 
 ;; Better defaults
 (setq save-interprogram-paste-before-kill t
@@ -125,6 +125,7 @@
 (global-display-fill-column-indicator-mode t)
 
 (use-package doom-themes
+  :straight t
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
@@ -132,10 +133,12 @@
   (load-theme 'doom-nord t)
   (doom-themes-org-config))
 
-(use-package all-the-icons)
+(use-package all-the-icons
+  :straight t)
 
 
 (use-package doom-modeline
+  :straight t
   :init
   (doom-modeline-mode))
 
@@ -153,63 +156,58 @@
 (global-set-key (kbd "C-c m i") 'adam/find-init-file)
 (global-set-key (kbd "C-c m r") 'adam/reload-init-file)
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :straight t)
 
 (use-package flycheck
+  :straight t
   :init (global-flycheck-mode))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Complete Anything
 (use-package company
-  :ensure t
+  :straight t
   :config
   (global-company-mode t)
   :hook ((python-mode) . company-mode))
 
 (use-package company-quickhelp
+  :straight t
   :config
   (company-quickhelp-mode))
 
 (use-package yasnippet
+  :straight t
   :init (yas-global-mode 1))
 
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :straight t)
 
 ;; IDE features
-(use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :commands (lsp lsp-deferred lsp-format-buffer lsp-organize-imports lsp-go-install-save-hooks)
-  :config
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
-  (defvar lsp-rust-server 'rust-analyzer)
-  (defun lsp-go-install-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t)))
-
-
-(use-package lsp-ui :commands lsp-ui-mode)
-
-(use-package dap-mode
-  :config
-  (dap-auto-configure-mode)
-  (require 'dap-python))
+(use-package eglot
+  :straight t
+  :hook
+  (go-mode . eglot-ensure))
 
 ;; Python
 (use-package blacken
+  :straight t
   :hook
   (python-mode . blacken-mode))
 
 (use-package python-pytest
+  :straight t
   :bind (("M-t" . python-pytest-function-dwim)
          ("M-T" . python-pytest-file-dwim)))
 
 (use-package pyvenv
+  :straight t
   :config
   (pyvenv-mode 1))
 
 (use-package lsp-pyright
+  :straight t
   :hook
   (python-mode . (lambda ()
 		   (require 'lsp-pyright)
@@ -218,26 +216,27 @@
 
 ;; Golang
 (use-package go-mode
-  :hook
-  ((go-mode . eglot-ensure)))
+  :straight t)
 
 ;;  Terraform
-(use-package terraform-mode)
+(use-package terraform-mode
+  :straight t)
 
 ;; Yaml
-(use-package yaml-mode)
+(use-package yaml-mode
+  :straight t)
 
 
 (use-package editorconfig
-  :ensure t
+  :straight t
   :config
   (editorconfig-mode 1))
 
 
 ;; Lua
 (use-package lua-mode
+  :straight t
   :defer t
-  :ensure t
   :config
   (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
@@ -253,8 +252,8 @@
                              (or "context" "describe" "it" "setup" "teardown")
                              "("))
                       line)))
-          (when busted-p
-            (+ current-indentation lua-indent-level)))))
+      (when busted-p
+        (+ current-indentation lua-indent-level)))))
 
 (defun rgc-lua-calculate-indentation-override (old-function &rest arguments)
   "Lua hook to fix indentation before passing to OLD-FUNCTION with ARGUMENTS."
@@ -266,7 +265,7 @@
 
 ;; Make sure to get SSH_AUTH_SOCK from shell
 (use-package exec-path-from-shell
-  :ensure t
+  :straight t
   :config
   (dolist (var '("SSH_AUTH_SOCK"))
     (add-to-list 'exec-path-from-shell-variables var))
@@ -275,6 +274,7 @@
 
 ;; DB Configs
 (use-package sql
+  :straight t
   :config
   (sql-set-product-feature 'mysql :prompt-regexp "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z]*\\]> ")
   (setq sql-connection-alist
@@ -299,7 +299,7 @@
 
 ;; Rust
 (use-package rustic
-  :ensure
+  :straight t
   :bind (:map rustic-mode-map
 	      ("M-j" . lsp-ui-imenu)
 	      ("M-?" . lsp-find-references)
@@ -320,7 +320,6 @@
     (shell-command (format "openssl x509 -text -noout -in %s" filename) bufname)
     (pop-to-buffer bufname)
     (local-set-key (kbd "q") (quit-window t))))
-
 (defun adam/dired-x509-info ()
   "Retrieve certificate information for file under point in Dired."
   (interactive)
@@ -334,26 +333,15 @@
 
 ;; Common-Lisp
 (use-package slime
+  :straight t
   :config
-  (setq inferior-lisp-program "sbcl")
-  (setq slime-contribs '(slime-fancy slime-tramp slime-quicklisp)))
+  (setq inferior-lisp-program "sbcl"))
 
-;; Ruby mode
-(use-package rufo
-  :hook
-  (ruby-mode . rufo-minor-mode))
+(use-package tree-sitter :straight t)
+(use-package tree-sitter-langs :straight t)
 
-(use-package tree-sitter
-  :config
-  (global-tree-sitter-mode)
-  :hook
-  ((tree-sitter-on-after . tree-sitter-hl-mode)))
-
-(use-package tree-sitter-langs)
 (use-package ts-fold
-  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
-  :hook
-  ((ruby-mode . ts-fold-indicators-mode)))
+  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold"))
 
-
-;; (require 'devcontainers-mode)
+(use-package docker-tramp
+  :straight t)
