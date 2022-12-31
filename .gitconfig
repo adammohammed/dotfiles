@@ -8,11 +8,14 @@
 
 [url "ssh://git@github.com/equinixmetal"]
 	insteadOf = https://github.com/equinixmetal
+
 [init]
 	defaultBranch = main
 [tag]
 	gpgsign = true
+
 [gpg]
 	format = ssh
+
 [gpg "ssh"]
 	allowedSignersFile = /Users/admohammed/.config/git/allowed_signers
