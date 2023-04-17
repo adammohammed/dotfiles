@@ -224,8 +224,33 @@
 
 
 ;; Golang
+(defun adam/go/get-fmt-command ()
+  "Return the available go fmt command."
+  (if (executable-find "goimports" t)
+      "goimports"
+    "gofmt"))
+
+(defvar adam/go/local-pkgs
+  '()
+  "List to be passed to the gofmt command.")
+
+
+(defun adam/go/setup-mode ()
+  "Setup goimports and format command when loading go-mode."
+  (let ((fmt-command (adam/go/get-fmt-command))
+	(local-pkgs adam/go/local-pkgs))
+    (setq gofmt-command fmt-command)
+    (cond
+     ((and (string= fmt-command "goimports") local-pkgs) (setq gofmt-args (append '("-local") local-pkgs)))
+     (t (setq gofmt-args '())))))
+
 (use-package go-mode
-  :straight t)
+  :straight t
+  :hook
+  ((before-save . gofmt-before-save))
+  ((go-mode . adam/go/setup-mode)))
+
+
 
 ;;  Terraform
 (use-package terraform-mode
@@ -338,7 +363,11 @@
 (define-key dired-mode-map (kbd "C-c t") 'adam/dired-x509-info)
 
 ;; Tramp configuration
-(setq tramp-default-method "ssh")
+(use-package tramp
+  :config
+  (setq tramp-default-method "ssh")
+  (add-to-list 'tramp-remote-path "/go/bin" t)
+  (add-to-list 'tramp-remote-path "/usr/local/go/bin" t))
 
 ;; Common-Lisp
 (use-package slime
@@ -353,4 +382,7 @@
   :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold"))
 
 (use-package docker-tramp
+  :straight t)
+
+(use-package janet-mode
   :straight t)
