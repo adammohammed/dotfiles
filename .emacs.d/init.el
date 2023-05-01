@@ -375,14 +375,9 @@
   :config
   (setq inferior-lisp-program "sbcl"))
 
-(use-package tree-sitter :straight t)
-(use-package tree-sitter-langs :straight t)
 
-(use-package ts-fold
-  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold"))
-
-(use-package docker-tramp
-  :straight t)
-
-(use-package janet-mode
-  :straight t)
+;; Local Variables:
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
+;;; init.el ends here
