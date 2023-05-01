@@ -30,9 +30,7 @@
 (straight-use-package 'use-package)
 
 (defcustom adam/all-the-icons-installed-p nil
-  "Variable that teslls init-file whether or no fonts have been installed.
-
-Reset to nil to force re-install."
+  "Variable that tells init-file whether or not fonts have been installed, reset to nil to force reinstall."
   :type 'boolean
   :options '(nil t))
 
@@ -88,10 +86,11 @@ Reset to nil to force re-install."
 
 (use-package counsel
   :straight t
-  :bind (("M-x" . counsel-M-x)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-c g" . counsel-git)
-	 ("C-c j" . counsel-git-grep)))
+  :bind
+  (("M-x" . counsel-M-x)
+   ("C-x C-f" . counsel-find-file)
+   ("C-c g" . counsel-git)
+   ("C-c j" . counsel-git-grep)))
 
 (use-package projectile
   :straight t
@@ -387,9 +386,3 @@ Reset to nil to force re-install."
 
 (use-package janet-mode
   :straight t)
-
-;; Local Variables:
-;; coding: utf-8
-;; no-byte-compile: t
-;; End:
-;;; init.el ends here
