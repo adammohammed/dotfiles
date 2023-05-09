@@ -1,4 +1,4 @@
-;;; init.el --- Initialization file for Emacs
+ ;;; init.el --- Initialization file for Emacs
 ;;; Commentary:
 
 ;;; Code:
@@ -66,31 +66,34 @@
 
 (global-set-key (kbd "M-Q") 'xah-fill-or-unfill)
 
-(use-package ivy
+(use-package paredit
+  :straight t
+  :hook
+  ((emacs-lisp-mode . enable-paredit-mode)
+   (lisp-mode . enable-paredit-mode)
+   (slime-mode . enable-paredit-mode)))
+
+
+(use-package vertico
   :straight t
   :init
-  (ivy-mode 1)
-  :config
-  (setq ivy-use-virtual-buffers 'bookmarks)
-  (defun adam-ivy-format-function-prefix (cands)
-    "Transform CANDS into a string with prefix on default candidate"
-    (ivy--format-function-generic
-     (lambda (str)
-       (concat " " (ivy--add-face str 'ivy-current-match)))
-     (lambda (str)
-       (concat "   " str))
-     cands
-     "\n"))
-  (setcdr (assq 't ivy-format-functions-alist) #'adam-ivy-format-function-prefix)
-  :bind (("C-c C-r" . ivy-resume)))
+  (vertico-mode))
 
-(use-package counsel
+(use-package orderless
   :straight t
-  :bind
-  (("M-x" . counsel-M-x)
-   ("C-x C-f" . counsel-find-file)
-   ("C-c g" . counsel-git)
-   ("C-c j" . counsel-git-grep)))
+  :init
+  (setq completion-styles '(orderless basic)
+	completion-category-defaults nil
+	completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package consult
+  :straight t)
+
+(use-package inf-ruby
+  :straight t
+  :hook
+  (ruby-mode . inf-ruby-minor-mode))
+
 
 (use-package projectile
   :straight t
