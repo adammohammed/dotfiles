@@ -94,6 +94,10 @@
   :hook
   (ruby-mode . inf-ruby-minor-mode))
 
+(use-package rufo
+  :straight t
+  :hook (ruby-mode . rufo-minor-mode))
+
 
 (use-package projectile
   :straight t
@@ -379,6 +383,10 @@
   (setq inferior-lisp-program "sbcl"))
 
 
+(use-package envrc
+  :straight t
+  :init
+  (envrc-global-mode))
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
