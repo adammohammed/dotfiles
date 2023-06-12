@@ -204,7 +204,9 @@
 (use-package eglot
   :straight t
   :hook
-  (go-mode . eglot-ensure))
+  (go-mode . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs '(elixir-mode . "elixir-ls")))
 
 ;; Python
 (use-package blacken
@@ -387,6 +389,12 @@
   :straight t
   :init
   (envrc-global-mode))
+
+
+(use-package elixir-mode
+  :straight t
+  :hook
+  ((elixir-mode . eglot-ensure)))
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
