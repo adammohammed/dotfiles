@@ -390,11 +390,13 @@
   :init
   (envrc-global-mode))
 
-
 (use-package elixir-mode
   :straight t
   :hook
   ((elixir-mode . eglot-ensure)))
+
+(use-package nix-mode
+  :straight t)
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
