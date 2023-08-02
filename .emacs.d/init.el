@@ -1,6 +1,8 @@
 ;;; init.el --- Initialization file for Emacs
 ;;; Commentary:
 
+(require 'cl)
+
 ;;; Code:
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -97,7 +99,6 @@
 (use-package rufo
   :straight t
   :hook (ruby-mode . rufo-minor-mode))
-
 
 (use-package projectile
   :straight t
@@ -397,8 +398,40 @@
 
 (use-package nix-mode
   :straight t)
-;; Local Variables:
-;; coding: utf-8
-;; no-byte-compile: t
-;; End:
+
+
+(use-package rspec-mode
+  :straight t
+  :config
+  (define-key rspec-mode-map (kbd "<f6>") 'rspec-verify-single)
+  (define-key rspec-mode-map (kbd "<f7>") 'rspec-verify))
+
+
+;; Just setting display-buffer-alist is good enough for
+;; making sure that we just use the dedicated frame for the test
+;; but `compile` also moves the point, so this advice does a
+;; little bit more to prevent jostling me around.
+(setopt
+ display-buffer-alist
+ '(("\\*rspec-compilation\\*"
+    (display-buffer-reuse-window display-buffer-pop-up-frame)
+    (reusable-frames . visible))))
+
+(defadvice compilation-start
+  (around inhibit-display
+      (command &optional mode name-function highlight-regexp))
+  (if (not (string-match "^\\(find\\|grep\\)" command))
+      (cl-letf ((display-buffer   #'ignore)
+                (set-window-point #'ignore)
+                (goto-char        #'ignore))
+        (save-window-excursion
+          ad-do-it))
+    ad-do-it))
+
+(ad-activate 'compilation-start)
+
+ ;; Local Variables:
+ ;; coding: utf-8
+ ;; no-byte-compile: t
+ ;; End:
 ;;; init.el ends here
